@@ -11,9 +11,9 @@ int H(const char*s){
 }
 
 int main() {
-	char String [100];
+	char kata[100];
 	
-	cout<<"Tuliskan Kata   : "; cin.getline(String,100);
+	cout<<"Tuliskan Kata   : "; cin.getline(kata,100);
 	cout<<endl;
-	cout<<"Jumlah Karakter : "<<H(String)<<" Huruf"<<endl;
+	cout<<"Jumlah Karakter : "<<H(kata)<<" Huruf"<<endl;
 	}
