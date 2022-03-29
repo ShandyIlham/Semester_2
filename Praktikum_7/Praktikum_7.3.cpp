@@ -1,7 +1,7 @@
 // program yang melakukan pembalikan terhadap kalimat dengan menggunakan stack.
 #include <iostream>
-#include<stdlib.h>
-#include<conio.h>
+#include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
 using namespace std;
 
