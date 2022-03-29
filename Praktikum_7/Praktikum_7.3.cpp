@@ -43,13 +43,13 @@ int main()
     cout<<"masukan kalimat : ";cin.getline(kalimat,sizeof(kalimat));
 
     system("CLS");
-    cout<<"kalimat asli : "<<kalimat;
+    cout<<"kalimat                : "<<kalimat;
 	
 	for(i=0; i<strlen(kalimat); i++) {
     	push(kalimat[i]);
     }
     cout<<endl;
-    cout<<"Kalimat setelah dibalik : ";
+    cout<<"Hasil setelah dibalik : ";
 
     for(i=0; i<strlen(kalimat); i++) {
     	cout<<pop();
