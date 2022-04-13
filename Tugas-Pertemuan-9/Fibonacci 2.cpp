@@ -14,10 +14,6 @@ int main(){
 	
 	cout<<"masukkan jumlah bilangan fibonacci = ";
 	cin>>num;
-	for (i=1;i<=num;i++){
-		Fibonacci(j);
-		j++;
-	}
-	cout<<"bilangan fibonacci dari "<<num<<" = "<<Fibonacci(j);
+	cout<<"bilangan fibonacci dari "<<num<<" = "<<Fibonacci(num);
 	return 0;
 }
