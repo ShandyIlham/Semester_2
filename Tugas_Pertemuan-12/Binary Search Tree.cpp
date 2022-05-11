@@ -1,8 +1,8 @@
 #include<iostream>
 #define SPACE 10
-
 using namespace std;
 
+// deklarasi class untuk node tree
 class TreeNode {
   public:
     int value;
@@ -21,6 +21,7 @@ class TreeNode {
   }
 };
 
+// deklarasi class binary search tree
 class BST {
   public:
     TreeNode * root;
@@ -35,8 +36,11 @@ class BST {
     }
   }
 
+// function untuk menambahkan node baru
   void insertNode(TreeNode * new_node) {
+  	// jika root masih kosong
     if (root == NULL) {
+      // pengalokasian memori dari node yang telah dibuat
       root = new_node;
       cout << "Value Inserted as root node!" << endl;
     } else {
@@ -88,49 +92,60 @@ class BST {
 	}
 
   void print2D(TreeNode * r, int space) {
-    if (r == NULL) // Base case  1
+    // base case 1
+	if (r == NULL)
       return;
-    space += SPACE; // Increase distance between levels   2
-    print2D(r -> right, space); // Process right child first 3 
+    // memperluas jarak antara level 2
+	space += SPACE;
+	// proses anak kanan dulu 3
+    print2D(r -> right, space);
     cout << endl;
-    for (int i = SPACE; i < space; i++) // 5 
-      cout << " "; // 5.1  
-    cout << r -> value << "\n"; // 6
-    print2D(r -> left, space); // Process left child  7
+    // 5
+    for (int i = SPACE; i < space; i++)
+      // 5.1
+	  cout << " ";
+    // 6
+	cout << r -> value << "\n";
+    // proses anak kiri 7
+	print2D(r -> left, space);
   }
 
-  void printPreorder(TreeNode * r) //(current node, Left, Right) 
+  // simpul saat ini, kiri, kanan
+  void printPreorder(TreeNode * r)
   {
     if (r == NULL)
       return;
-    /* first print data of node */
+    // mencetak data simpul pertama
     cout << r -> value << " ";
-    /* then recur on left sutree */
+    // kemudian muncul kembali di subpohon kiri
     printPreorder(r -> left);
-    /* now recur on right subtree */
+    // sekarang muncul kembali di subpohon kanan
     printPreorder(r -> right);
   }
 
-  void printInorder(TreeNode * r) //  (Left, current node, Right)
+  // kiri, simpul terkini, kanan
+  void printInorder(TreeNode * r)
   {
     if (r == NULL)
       return;
-    /* first recur on left child */
+    // pertama muncul kembali di anak kiri
     printInorder(r -> left);
-    /* then print the data of node */
+    // kemudian cetak data di simpul
     cout << r -> value << " ";
-    /* now recur on right child */
+    // sekarang muncul kembali di anak kanan
     printInorder(r -> right);
   }
-  void printPostorder(TreeNode * r) //(Left, Right, Root)
+  
+  // kiri, kanan, akar
+  void printPostorder(TreeNode * r)
   {
     if (r == NULL)
       return;
-    // first recur on left subtree 
+    // pertama muncul kembali di subpohon kiri 
     printPostorder(r -> left);
-    // then recur on right subtree 
+    // kemudian muncul kembali di subpohon kanan
     printPostorder(r -> right);
-    // now deal with the node 
+    // sekarang sepaket dengan simpul
     cout << r -> value << " ";
   }
 
@@ -167,24 +182,25 @@ class BST {
     if (r == NULL)
       return -1;
     else {
-      /* compute the height of each subtree */
+      // tinggi komputer satu sama lain | persaaman tinggi sampul kanan | kiri
       int lheight = height(r -> left);
       int rheight = height(r -> right);
 
-      /* use the larger one */
+      // menggunakan yang terbesar
       if (lheight > rheight)
         return (lheight + 1);
       else return (rheight + 1);
     }
   }
 
-  /* Print nodes at a given level */
+  // mencetak simpul
   void printGivenLevel(TreeNode * r, int level) {
     if (r == NULL)
       return;
     else if (level == 0)
       cout << r -> value << " ";
-    else // level > 0  
+    // level > 0
+	else
     {
       printGivenLevel(r -> left, level - 1);
       printGivenLevel(r -> right, level - 1);
@@ -198,51 +214,11 @@ class BST {
 
   TreeNode * minValueNode(TreeNode * node) {
     TreeNode * current = node;
-    /* loop down to find the leftmost leaf */
+    // perulangan untuk menemukan daun paling kiri
     while (current -> left != NULL) {
       current = current -> left;
     }
     return current;
-  }
-
-  TreeNode * deleteNode(TreeNode * r, int v) {
-    // base case 
-    if (r == NULL) {
-      return NULL;
-    }
-    // If the key to be deleted is smaller than the root's key, 
-    // then it lies in left subtree 
-    else if (v < r -> value) {
-      r -> left = deleteNode(r -> left, v);
-    }
-    // If the key to be deleted is greater than the root's key, 
-    // then it lies in right subtree 
-    else if (v > r -> value) {
-      r -> right = deleteNode(r -> right, v);
-    }
-    // if key is same as root's key, then This is the node to be deleted 
-    else {
-      // node with only one child or no child 
-      if (r -> left == NULL) {
-        TreeNode * temp = r -> right;
-        delete r;
-        return temp;
-      } else if (r -> right == NULL) {
-        TreeNode * temp = r -> left;
-        delete r;
-        return temp;
-      } else {
-        // node with two children: Get the inorder successor (smallest 
-        // in the right subtree) 
-        TreeNode * temp = minValueNode(r -> right);
-        // Copy the inorder successor's content to this node 
-        r -> value = temp -> value;
-        // Delete the inorder successor 
-        r -> right = deleteNode(r -> right, temp -> value);
-        //deleteNode(r->right, temp->value); 
-      }
-    }
-    return r;
   }
 
 };
@@ -252,85 +228,38 @@ int main() {
   int option, val;
 
   do {
-    cout << "What operation do you want to perform? " <<
-      " Select Option number. Enter 0 to exit." << endl;
-    cout << "1. Insert Node" << endl;
-    cout << "2. Search Node" << endl;
-    cout << "3. Delete Node" << endl;
-    cout << "4. Print/Traversal BST values" << endl;
-    cout << "5. Height of Tree" << endl;
-    cout << "6. Clear Screen" << endl;
+    cout << "What operation do you want to perform?" << endl;
     cout << "0. Exit Program" << endl;
-
-    cin >> option;
-    //Node n1;
+    cout << "1. Insert Node" << endl;
+    cout << "2. Print BST Values" << endl;
+    cout << "masukkan opsi : "; cin >> option;
+    // simpul node;
     TreeNode * new_node = new TreeNode();
 
     switch (option) {
     case 0:
       break;
     case 1:
-      	cout <<"INSERT"<<endl;
-	      cout <<"Enter VALUE of TREE NODE to INSERT in BST: ";
-	      cin >> val;
-	      new_node->value = val;
-	      obj.root= obj.insertRecursive(obj.root,new_node);
-	      //obj.insertNode(new_node);
-	      cout<<endl;
-    		break;
-      
+      cout << "INSERT" << endl;
+	  cout << "Enter VALUE of TREE NODE to INSERT in BST: ";
+	  cin >> val;
+	  new_node -> value = val;
+	  obj.root = obj.insertRecursive(obj.root,new_node);
+	  cout << endl;
+      break;
     case 2:
-      cout << "SEARCH" << endl;
-      cout << "Enter VALUE of TREE NODE to SEARCH in BST: ";
-      cin >> val;
-      //new_node = obj.iterativeSearch(val);
-      new_node = obj.recursiveSearch(obj.root, val);
-      if (new_node != NULL) {
-        cout << "Value found" << endl;
-      } else {
-        cout << "Value NOT found" << endl;
-      }
-      break;
-    case 3:
-      cout << "DELETE" << endl;
-      cout << "Enter VALUE of TREE NODE to DELETE in BST: ";
-      cin >> val;
-      new_node = obj.iterativeSearch(val);
-      if (new_node != NULL) {
-        obj.deleteNode(obj.root, val);
-        cout << "Value Deleted" << endl;
-      } else {
-        cout << "Value NOT found" << endl;
-      }
-      break;
-    case 4:
       cout << "PRINT 2D: " << endl;
       obj.print2D(obj.root, 5);
       cout << endl;
       cout << "Print Level Order BFS: \n";
       obj.printLevelOrderBFS(obj.root);
-      cout << endl;
-      //	      cout <<"PRE-ORDER: ";
-      //	      obj.printPreorder(obj.root);
-      //	      cout<<endl;
-      //	      cout <<"IN-ORDER: ";
-      //	      obj.printInorder(obj.root);
-      //	      cout<<endl;
-      //	      cout <<"POST-ORDER: ";
-      //	      obj.printPostorder(obj.root);
-      break;
-    case 5:
-      cout << "TREE HEIGHT" << endl;
-      cout << "Height : " << obj.height(obj.root) << endl;
-      break;
-    case 6:
-      system("cls");
+      cout << "\n\n";
       break;
     default:
-      cout << "Enter Proper Option number " << endl;
+      cout << "Enter Proper Option Number\n\n";
     }
-
-  } while (option != 0);
+  }
+  while (option != 0);
 
   return 0;
 }
